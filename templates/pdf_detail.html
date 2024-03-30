@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Detail</title>
+</head>
+<body>
+    <h1>PDF Detail</h1>
+    
+    <h2>PDF File:</h2>
+    <p>{{ pdf.pdf_file.name }}</p>
+    
+    <h2>Images:</h2>
+    {% if images %}
+    {% for image in images %}
+    <img src="{{ image.image.url }}" alt="Page {{ forloop.counter }}" style="width: 20%;">
+    {% endfor %}
+    {% else %}
+        <p>No images found.</p>
+    {% endif %}
+    
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
