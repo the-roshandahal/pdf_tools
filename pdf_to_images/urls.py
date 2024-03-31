@@ -11,7 +11,7 @@ urlpatterns = [
     
 
 
-    path('upload/', views.upload_pdf, name='upload_pdf'),
+    path('upload_pdf/', views.upload_pdf, name='upload_pdf'),
     path('pdf/<int:id>/', views.pdf_detail, name='pdf_detail'),
     re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),

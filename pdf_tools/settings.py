@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pdf_to_images',
+    'url_shortner',
+    'pdf_reader',
 ]
 
 MIDDLEWARE = [

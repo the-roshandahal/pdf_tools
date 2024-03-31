@@ -23,6 +23,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('pdf_to_images.urls')),
+    path('', include('url_shortner.urls')),
+    path('a/', include('pdf_reader.urls')),
     path('admin/', admin.site.urls),
 
 
