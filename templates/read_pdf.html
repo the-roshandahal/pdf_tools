@@ -1,9 +1,56 @@
-{% load static %} 
-<div>
-    <p>{{ pdf_text }}</p>
-    <audio controls>
-        <source src="/media/output/{{ pdf_text.id }}/output.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Highlighting</title>
+<style>
+.highlight {
+    background-color: yellow;
+}
+</style>
+</head>
+<body>
+<div id="text-container">
+    <p id="text">
+        {% for word, start_time, end_time in pdf_text %}
+            <span data-start="{{ start_time }}" data-end="{{ end_time }}">{{ word }}</span>
+        {% endfor %}
+    </p>
 </div>
+<audio id="audio" controls>
+    <source src="/media/output/{{ pdf_text.id }}/output.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+const textContainer = document.getElementById('text-container');
+const text = document.getElementById('text');
+const audio = document.getElementById('audio');
+
+audio.addEventListener('timeupdate', () => {
+    const currentTime = audio.currentTime;
+
+    const words = text.querySelectorAll('span');
+    let currentWord;
+    for (const word of words) {
+        const startTime = parseFloat(word.dataset.start);
+        const endTime = parseFloat(word.dataset.end);
+        if (currentTime >= startTime && currentTime <= endTime) {
+            currentWord = word;
+            break;
+        }
+    }
+
+    textContainer.querySelectorAll('.highlight').forEach(element => {
+        element.classList.remove('highlight');
+    });
+
+    if (currentWord) {
+        currentWord.classList.add('highlight');
+    }
+});
+</script>
+</body>
+</html>
+```
